@@ -58,6 +58,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('transaction.returnbook') }}">{{ __('Return Book') }}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('transactions.index') }}">{{ __('Account History') }}</a>
+                        </li>
 
                         
                             <li class="nav-item dropdown">

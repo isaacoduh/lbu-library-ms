@@ -13,6 +13,18 @@ use Illuminate\Support\Str;
 
 class TransactionController extends Controller
 {
+    public function myTransactions()
+    {
+        $transactions = Transaction::where('student_id', Auth::user()->id)->get();
+        // Check if any transactions are found
+        if ($transactions->count() > 0) {
+            // Return view with transactions data
+            return view('transactions.index', ['transactions' => $transactions]);
+        } else {
+            // Return view with empty transactions data
+            return view('transactions.index', ['transactions' => null]);
+        }
+    }
     public function borrowForm(){
         return view('transactions.borrow');
     }
@@ -38,7 +50,7 @@ class TransactionController extends Controller
             $transaction->date_returned = null;
             $transaction->save();
 
-            return redirect()->back()->with('success', 'Book borrowed successfully!');
+            return redirect()->route('transactions.index')->with('success', 'Book borrowed successfully!');
             // Session::flash('success', 'Book Found successfully!');
         } else {
             // Book not found, display error message
@@ -75,10 +87,10 @@ class TransactionController extends Controller
                 $fine = $overdueDays * 3;
                 $reference = Str::uuid();
                 $transaction->save();
-                return redirect()->back()->with('success', "Invoice generated with reference: $reference, Amount: $fine USD. For your overdue days by $overdueDays");
+                return redirect()->route('transactions.index')->with('success', "Invoice generated with reference: $reference, Amount: $fine USD. For your overdue days by $overdueDays");
             } else {
                 $transaction->save();
-                return redirect()->back()->with('success', 'Book returned successfully!');
+                return redirect()->route('transactions.index')->with('success', 'Book returned successfully!');
             }
             // Generate unique reference for the invoice
             

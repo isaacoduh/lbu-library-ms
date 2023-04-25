@@ -30,7 +30,12 @@ Route::post('/transaction/borrow',[App\Http\Controllers\TransactionController::c
 
 Route::get('/transaction/returnbook',[App\Http\Controllers\TransactionController::class,'returnBookForm'])->middleware('auth')->name('transaction.returnbook');
 
+
+Route::get('/transactions',[App\Http\Controllers\TransactionController::class,'myTransactions'])->middleware('auth')->name('transactions.index');
+
 Route::post('/transaction/returnbook',[App\Http\Controllers\TransactionController::class,'returnBookFormSubmit'])->middleware('auth')->name('transaction.returnbook.submit');
+
+
 
 // Route::middleware(['auth','force.change'])->group(function () {
     
