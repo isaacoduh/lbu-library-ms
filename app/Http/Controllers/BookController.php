@@ -14,4 +14,9 @@ class BookController extends Controller
 
         return view('books.index', ['books' => $books]);
     }
+
+    public function storeBookForm()
+    {
+        return view('books.create');
+    }
 }
