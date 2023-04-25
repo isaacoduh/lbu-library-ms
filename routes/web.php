@@ -24,6 +24,14 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/password/change', [App\Http\Controllers\Auth\PasswordController::class,'show'])->name('password.change');
 Route::post('/password/change', [App\Http\Controllers\Auth\PasswordController::class,'change'])->name('password.change.submit');
 
+Route::get('/books',[App\Http\Controllers\BookController::class,'index'])->middleware('auth')->name('books.index');
+Route::get('/transaction/borrow',[App\Http\Controllers\TransactionController::class,'borrowForm'])->middleware('auth')->name('transaction.borrow');
+Route::post('/transaction/borrow',[App\Http\Controllers\TransactionController::class,'borrowFormSubmit'])->middleware('auth')->name('transaction.borrow.submit');
+
+Route::get('/transaction/returnbook',[App\Http\Controllers\TransactionController::class,'returnBookForm'])->middleware('auth')->name('transaction.returnbook');
+
+Route::post('/transaction/returnbook',[App\Http\Controllers\TransactionController::class,'returnBookFormSubmit'])->middleware('auth')->name('transaction.returnbook.submit');
+
 // Route::middleware(['auth','force.change'])->group(function () {
     
    
