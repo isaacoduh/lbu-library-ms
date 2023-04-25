@@ -12,7 +12,7 @@
                 {{ session('success') }}
             </div>
         @endif
-        <h1>Books List</h1>
+        <h1>Transactions History</h1>
     <table class="table table-light table-bordered">
         <tr>
             <th>Book Isbn</th>

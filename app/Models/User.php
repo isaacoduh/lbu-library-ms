@@ -50,4 +50,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Transaction::class);
     }
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin'; // Replace 'role' with the actual column name in your users table that represents the user's role
+    }
+
+    public function isUser()
+    {
+        return $this->role === 'user';
+    }
 }

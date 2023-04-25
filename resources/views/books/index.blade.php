@@ -1,8 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Books List</h1>
-    <table class="table table-light bordered">
+    <div class="container-fluid">
+        <h1>Books List</h1>
+    <table class="table table-light table-bordered">
         <tr>
             <th>ID</th>
             <th>Isbn</th>
@@ -22,4 +23,5 @@
             </tr>
         @endforeach
     </table>
+    </div>
 @endsection

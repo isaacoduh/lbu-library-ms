@@ -22,5 +22,19 @@ class BooksTableSeeder extends Seeder
             'year' => '2017',
             'copies' => 5
         ]);
+        Book::create([
+            'isbn' => '9781292097619',
+            'title' => 'Fundamentals of database systems (7th edition)',
+            'author' => 'Ramez Elmasri',
+            'year' => '2016',
+            'copies' => 5
+        ]);
+        Book::create([
+            'isbn' => '9780262530910',
+            'title' => 'Introduction To Algorithms',
+            'author' => 'Thomas H. Cormen',
+            'year' => '1990',
+            'copies' => 5
+        ]);
     }
 }
