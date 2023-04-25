@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+// use App\Http\Controllers\
 
 /*
 |--------------------------------------------------------------------------
@@ -19,11 +20,16 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::middleware(['auth','password.change'])->group(function () {
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('password/change', [App\Http\Controllers\Auth\PasswordController::class,'showChangeForm'])->name('password.change.form');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('force.change');
+Route::get('/password/change', [App\Http\Controllers\Auth\PasswordController::class,'show'])->name('password.change');
+Route::post('/password/change', [App\Http\Controllers\Auth\PasswordController::class,'change'])->name('password.change.submit');
+
+// Route::middleware(['auth','force.change'])->group(function () {
     
-    Route::post('/password/change', [App\Http\Controllers\Auth\PasswordController::class,'change'])->name('password.change.submit');
-});
+   
+    
+    
+    
+// });
 
 

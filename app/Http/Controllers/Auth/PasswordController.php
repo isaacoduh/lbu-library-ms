@@ -11,7 +11,7 @@ class PasswordController extends Controller
     // {
     //     $this->middleware('auth'); // Apply the 'auth' middleware to ensure user is logged in
     // }
-    public function showChangeForm()
+    public function show()
     {
         return view('auth.passwords.change');
         // return 'ok';
