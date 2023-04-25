@@ -2,6 +2,16 @@
 
 @section('content')
     <div class="container-fluid">
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+        @if(session('success'))
+            <div class="alert alert-success alert-dismiss">
+                {{ session('success') }}
+            </div>
+        @endif
         <h1>Books List</h1>
     <table class="table table-light table-bordered">
         <tr>

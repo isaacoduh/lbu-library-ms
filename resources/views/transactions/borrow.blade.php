@@ -3,16 +3,7 @@
 @section('content')
 
     <div class="container">
-        @if(session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
-        @if(session('success'))
-            <div class="alert alert-success alert-dismiss">
-                {{ session('success') }}
-            </div>
-        @endif
+        
         <h1>Borrow A Book</h1>
 
         <form method="POST" action="{{ route('transaction.borrow.submit') }}">
