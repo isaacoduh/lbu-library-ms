@@ -19,4 +19,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::middleware(['auth','password.change'])->group(function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('password/change', [App\Http\Controllers\Auth\PasswordController::class,'showChangeForm'])->name('password.change.form');
+    
+    Route::post('/password/change', [App\Http\Controllers\Auth\PasswordController::class,'change'])->name('password.change.submit');
+});
+
+
