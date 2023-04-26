@@ -9,6 +9,7 @@ use App\Models\Transaction;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Http;
 
 
 class TransactionController extends Controller
@@ -87,7 +88,33 @@ class TransactionController extends Controller
                 $fine = $overdueDays * 3;
                 $reference = Str::uuid();
                 $transaction->save();
-                return redirect()->route('transactions.index')->with('success', "Invoice generated with reference: $reference, Amount: $fine USD. For your overdue days by $overdueDays");
+                // create a json payload to talk to the finance api
+                $data = [
+                    'reference' => $reference,
+                    'amount' => $fine,
+                    'type' => 'LIBRARY_FINE',
+                    'status' => 'OUTSTANDING',
+                    'account' => [
+                        'studentId' => Auth::user()->username
+                    ]
+                ];
+                $response = Http::post('http://localhost:3500/api/v1/invoices', $data);
+                if ($response->successful()) {
+                    // Process the response as needed
+                    // e.g. update the transaction record with the invoice reference, etc.
+                    // ...
+    
+                    // Return a success response
+                    return redirect()->route('transactions.index')->with('success', "Invoice generated with reference: $reference, Amount: $fine USD. For your rental that is overdue by $overdueDays days");
+                    // return response()->json(['message' => 'Overdue invoice sent successfully']);
+                } else {
+                    // Handle the API error response
+                    // e.g. log the error, throw an exception, etc.
+                    // ...
+    
+                    // Return an error response
+                    // return response()->json(['message' => 'Failed to send overdue invoice'], 500);
+                }
             } else {
                 $transaction->save();
                 return redirect()->route('transactions.index')->with('success', 'Book returned successfully!');

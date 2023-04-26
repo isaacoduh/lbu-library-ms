@@ -49,18 +49,27 @@
                                 </li>
                             @endif
                         @else
+                        @if(Auth::check() && Auth::user()->isAdmin())
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('books.create') }}">Add Book</a>
+                            </li>
+                        @endif
+                        @if(Auth::check() && Auth::user()->isUser())
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('transaction.borrow') }}">{{ __('Borrow') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('transaction.returnbook') }}">{{ __('Return Book') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('transactions.index') }}">{{ __('Account History') }}</a>
+                            </li>
+                        @endif
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('books.index') }}">{{ __('Books') }}</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('transaction.borrow') }}">{{ __('Borrow') }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('transaction.returnbook') }}">{{ __('Return Book') }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('transactions.index') }}">{{ __('Account History') }}</a>
-                        </li>
+                        
+                        
 
                         
                             <li class="nav-item dropdown">
