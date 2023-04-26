@@ -92,9 +92,13 @@ class TransactionController extends Controller
                 $data = [
                     'reference' => $reference,
                     'amount' => $fine,
-                    'studentId' => Auth::user()->username,
+                    'type' => 'LIBRARY_FINE',
+                    'status' => 'OUTSTANDING',
+                    'account' => [
+                        'studentId' => Auth::user()->username
+                    ]
                 ];
-                $response = Http::post('http://localhost:3500/api/v1/webhook/listen', $data);
+                $response = Http::post('http://localhost:3500/api/v1/invoices', $data);
                 if ($response->successful()) {
                     // Process the response as needed
                     // e.g. update the transaction record with the invoice reference, etc.
