@@ -98,35 +98,30 @@ class TransactionController extends Controller
                         'studentId' => Auth::user()->username
                     ]
                 ];
-                $response = Http::post('http://localhost:3500/api/v1/invoices', $data);
-                if ($response->successful()) {
-                    // Process the response as needed
-                    // e.g. update the transaction record with the invoice reference, etc.
-                    // ...
-    
-                    // Return a success response
-                    return redirect()->route('transactions.index')->with('success', "Invoice generated with reference: $reference, Amount: $fine USD. For your rental that is overdue by $overdueDays days");
-                    // return response()->json(['message' => 'Overdue invoice sent successfully']);
-                } else {
-                    // Handle the API error response
-                    // e.g. log the error, throw an exception, etc.
-                    // ...
-    
-                    // Return an error response
-                    // return response()->json(['message' => 'Failed to send overdue invoice'], 500);
-                }
+                $response = Http::post('http://host.docker.internal:4200/api/v1/invoices', $data);
+
+                return redirect()->route('transactions.index')->with('success', "Invoice generated with reference: $reference, Amount: $fine USD. For your rental that is overdue by $overdueDays days");
+                // Session::flash('success', "Invoice generated with reference: $reference, Amount: $fine USD. For your rental that is overdue by $overdueDays days");
+                // dd($response);
+                // if ($response->successful()) {
+                //     // Process the response as needed
+                    
+                //     dd($response);
+                //     // Return a success response
+                //     Session::flash('success', "Invoice generated with reference: $reference, Amount: $fine USD. For your rental that is overdue by $overdueDays days");
+                //     // return redirect()->route('transactions.index')->with('success', "Invoice generated with reference: $reference, Amount: $fine USD. For your rental that is overdue by $overdueDays days");
+                //     // return response()->json(['message' => 'Overdue invoice sent successfully']);
+                // } else {
+                //     // Handle the API error response
+                // }
             } else {
                 $transaction->save();
                 return redirect()->route('transactions.index')->with('success', 'Book returned successfully!');
             }
-            // Generate unique reference for the invoice
             
 
-            // Display success flash message
-            
             
         } else {
-            // Transaction not found, display error message
             return redirect()->back()->with('error', 'Transaction not found.');
         }
     }
